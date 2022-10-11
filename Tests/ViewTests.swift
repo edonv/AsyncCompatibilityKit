@@ -9,6 +9,7 @@ import Combine
 import SwiftUI
 import AsyncCompatibilityKit
 
+#if canImport(UIKit)
 final class ViewTests: XCTestCase {
     private var cancellables: Set<AnyCancellable>!
 
@@ -107,3 +108,4 @@ private extension ViewTests {
         window.makeKeyAndVisible()
     }
 }
+#endif
