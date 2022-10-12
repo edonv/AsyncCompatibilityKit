@@ -16,9 +16,11 @@ public extension Publisher where Failure == Never {
         get async {
             await withCheckedContinuation { c in
                 var cancellable: AnyCancellable?
+                let onTermination = { cancellable?.cancel() }
+                
                 cancellable = self.first().sink { value in
                     c.resume(returning: value)
-                    cancellable?.cancel()
+                    onTermination()
                 }
             }
         }
@@ -33,6 +35,8 @@ public extension Publisher {
         get async throws {
             try await withCheckedThrowingContinuation { c in
                 var cancellable: AnyCancellable?
+                let onTermination = { cancellable?.cancel() }
+                
                 cancellable = self.first().sink(receiveCompletion: { completion in
                     switch completion {
                     case .finished:
@@ -40,7 +44,8 @@ public extension Publisher {
                     case .failure(let error):
                         c.resume(throwing: error)
                     }
-                    cancellable?.cancel()
+                    
+                    onTermination()
                 }, receiveValue: { value in
                     c.resume(returning: value)
                 })
