@@ -1,8 +1,9 @@
-/**
-*  AsyncCompatibilityKit
-*  Copyright (c) John Sundell 2021
-*  MIT license, see LICENSE.md file for details
-*/
+//
+//  Future+Async.swift
+//
+//
+//  Created by Edon Valdman on 10/11/22.
+//
 
 import Combine
 
@@ -17,6 +18,7 @@ public extension Future {
                 var cancellable: AnyCancellable?
                 let onTermination = { cancellable?.cancel() }
                 
+                // TODO: leaking continuation: https://www.hackingwithswift.com/quick-start/concurrency/how-to-use-continuations-to-convert-completion-handlers-into-async-functions#:~:text=On%20the%20other%20hand%2C%20if%20you%20fail%20to,any%20resources%20it’s%20using%20to%20be%20held%20indefinitely.
                 cancellable = sink(
                     receiveCompletion: { completion in
                         switch completion {
@@ -27,6 +29,12 @@ public extension Future {
                         }
                         
                         onTermination()
+                        
+//                        guard case .failure(let error) = completion else {
+//                            return
+//                        }
+//                        continuation.resume(throwing: error)
+
                     }, receiveValue: { value in
                         continuation.resume(returning: value)
                     }

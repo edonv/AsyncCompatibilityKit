@@ -1,9 +1,8 @@
-//
-//  Publisher+Async.swift
-//
-//
-//  Created by Edon Valdman on 10/11/22.
-//
+/**
+*  AsyncCompatibilityKit
+*  Copyright (c) John Sundell 2021
+*  MIT license, see LICENSE.md file for details
+*/
 
 import Combine
 
