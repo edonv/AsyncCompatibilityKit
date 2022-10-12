@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 public extension Publisher where Failure == Never {
-
     /// Retrieve the first emitted value asynchronously.
     ///
     /// Any following emissions are ignored.
@@ -27,7 +26,6 @@ public extension Publisher where Failure == Never {
 }
 
 public extension Publisher {
-
     /// Retrieve the first emitted value asynchronously, or an error.
     ///
     /// Any following emissions are ignored.
