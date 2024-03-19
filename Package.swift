@@ -23,7 +23,8 @@ let package = Package(
     targets: [
         .target(
             name: "AsyncCompatibilityKit",
-            path: "Sources"
+            path: "Sources",
+            resources: [.copy("./PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
             name: "AsyncCompatibilityKitTests",
